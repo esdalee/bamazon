@@ -22,41 +22,70 @@ connection.query("SELECT * FROM products", function(err,res){
         console.log("ID: " + res[i].id + "\nProduct Name: " + res[i].product_name + "\nPrice: " + "$" + res[i].price + "\n\n");
     };
 
-    // End connection
-    connection.end();
-});
-
-// Prompt user
-inquirer.prompt([
-    {
-        name: "id",
-        type: "input",
-        message: "What's the ID of the product?",
-        validate: function(value){
-            if (isNaN(value) === false) {
-                return true;
+    // Prompt user
+    inquirer.prompt([
+        {
+            // Get ID of product
+            name: "id",
+            type: "input",
+            message: "What's the ID of the product?",
+            validate: function(value){
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                return false;
             }
-            return false;
-        }
-    },
-    {
-        name: "quantity",
-        type: "input",
-        message: "How many units would you like to buy?",
-        validate: function(value){
-            if (isNaN(value) === false) {
-                return true;
+        },
+        {
+            // Get quantity of units for the product
+            name: "quantity",
+            type: "input",
+            message: "How many units would you like to buy?",
+            validate: function(value){
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
-    }
-]).then(function(res){
+    ]).then(function(res){
+        // Check for the ID & Quantity
+        console.log(res.id, res.quantity);
 
-    console.log(res.id, res.quantity);
+        var productID = res.id;
+        var quantity = parseInt(res.quantity);
 
-    connection.query("SELECT * FROM products", function(err, response) {
+        // Set connection query to filter for product ID
+        connection.query("SELECT * FROM products WHERE id = ?", productID, function(err, response) {
 
-        
+            console.log(response);
 
+            // Error handler
+            if (err) throw err;
+
+            // Check if there's enough units in stock
+            // Handle insufficient quantity
+            if (quantity > response[0].stock_quantity) {
+                console.log("Insufficient Quantity! Please select a smaller amount");
+                return false;
+            }
+            else {
+
+                // Update DB
+                connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [response[0].stock_quantity-quantity, productID], function(err, data){
+
+                    if (err) throw err;
+
+                    // Total cost
+                    console.log("Order is successfully placed! Total cost is: " + response[0].price*quantity + "\n\n");
+
+                    // End connection
+                    connection.end();
+
+                });
+             }
+        });
     });
+
 });
+
