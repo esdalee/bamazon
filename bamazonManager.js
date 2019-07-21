@@ -119,11 +119,13 @@ function addInventory(){
             // If ID exists in the inventory then add quantity to the product
             if (data) {
 
-                connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [data[0].stock_quantity+addQuantity, productID], function(err, res){
+                var newQuantity = data[0].stock_quantity+addQuantity;
+                
+                connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [newQuantity, productID], function(err, res){
 
                     if (err) throw err;
 
-                    console.log("Stock quantity updated! Total quantity for " + data[0].product_name + "is now: " + data[0].stock_quantity + "\n\n");
+                    console.log("Stock quantity updated! Total quantity for " + data[0].product_name + "is now: " + newQuantity + "\n\n");
                 });
             }
             else {

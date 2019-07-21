@@ -10,6 +10,10 @@ EX: Customer View
 ![](bamazonCustomer-Demo.gif)
 
 EX: Manager View
+![](Manager-ViewProducts.gif)
+![](Manager-LowInventory.gif)
+![](Manager-AddInventory.gif)
+![](Manager-AddProduct.gif)
 
 EX: Supervisor View  
 
