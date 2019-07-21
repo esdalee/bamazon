@@ -50,7 +50,7 @@ connection.query("SELECT * FROM products", function(err,res){
         }
     ]).then(function(res){
         // Check for the ID & Quantity
-        console.log(res.id, res.quantity);
+        // console.log(res.id, res.quantity);
 
         var productID = res.id;
         var quantity = parseInt(res.quantity);
@@ -58,7 +58,7 @@ connection.query("SELECT * FROM products", function(err,res){
         // Set connection query to filter for product ID
         connection.query("SELECT * FROM products WHERE id = ?", productID, function(err, response) {
 
-            console.log(response);
+            // console.log(response);
 
             // Error handler
             if (err) throw err;
@@ -77,7 +77,7 @@ connection.query("SELECT * FROM products", function(err,res){
                     if (err) throw err;
 
                     // Total cost
-                    console.log("Order is successfully placed! Total cost is: " + response[0].price*quantity + "\n\n");
+                    console.log("Order is successfully placed! Total cost is: $" + response[0].price*quantity + "\n\n");
 
                     // End connection
                     connection.end();
@@ -86,6 +86,5 @@ connection.query("SELECT * FROM products", function(err,res){
              }
         });
     });
-
 });
 
