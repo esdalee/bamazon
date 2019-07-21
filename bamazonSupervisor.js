@@ -1,7 +1,7 @@
 // Initialize dependencies
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var table = require("table");
+var Table = require("cli-table");
 
 // Set up connection
 var connection = mysql.createConnection({
@@ -35,22 +35,29 @@ inquirer.prompt([
 
 function viewProductSales(){
 
-    connection.query("SELECT * from department WHERE stock_quantity < ?", 5, function(err, response){
+    connection.query("SELECT * from departments LEFT JOIN products ON departments.department_name = products.department_name", function(err, response){
 
+        if (err) throw err
+    
+        var table = new Table({
 
+            head: ["department_id", "department_name", "over_head_costs", "product_sales", "total_profit"]
 
+        });
+
+        // console.log(JSON.stringify(response));
+        // Push results into a table array
+        for (var i=0; i<response.length; i++) {
+            var totalProfit = response[i].product_sales - response[i].over_head_costs;
+            table.push(
+                [response[i].id, response[i].department_name, response[i].over_head_costs, response[i].product_sales, totalProfit]
+            );
+        };
+
+        // Log table of results
+        console.log(table.toString());
+
+        // End connection
+        connection.end();
     });
-
-    import {
-        table
-    } from "table";
-
-    let data,
-        output;
-
-    data = [
-
-    ];
-    output = table(data);
-    console.log(output);
 };
