@@ -19,7 +19,7 @@ connection.query("SELECT * FROM products", function(err,res){
     // console.log(res);
     // Display id, name, price of product
     for (var i=0;i<res.length;i++) {
-        console.log("ID: " + res[i].id + "\nProduct Name: " + res[i].product_name + "\nPrice: " + "$" + res[i].price + "\n\n");
+        console.log("ID: " + res[i].id + "\nProduct Name: " + res[i].product_name + "\nPrice: " + "$" + res[i].price + "\nProduct Sales: " + res[i].product_sales + "\n\n");
     };
 
     // Prompt user
@@ -71,9 +71,16 @@ connection.query("SELECT * FROM products", function(err,res){
             }
             else {
 
-                // Update DB
+                // Set variables for new quantities
                 var newQuantity = response[0].stock_quantity-quantity;
-                connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [newQuantity, productID], function(err, data){
+                var sales = response[0].price*quantity;
+
+                console.log(newQuantity);
+                console.log(productID);
+                console.log(sales);
+
+                // Update DB
+                connection.query("UPDATE products SET stock_quantity = ?, product_sales = ? WHERE id = ?", [newQuantity, sales, productID], function(err, data){
 
                     if (err) throw err;
 

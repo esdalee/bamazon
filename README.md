@@ -18,6 +18,6 @@ EX: Manager View
 EX: Supervisor View  
 
 ### Technologies Used: 
-Node (mysql, inquirer node packages) written with sql and JS
+Node (mysql, inquirer node packages) written with SQL and JS
 
 #### Developed by: Esther Lee
