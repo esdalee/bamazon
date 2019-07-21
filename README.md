@@ -16,6 +16,7 @@ EX: Manager View
 ![](gifs/Manager-AddProduct.gif)
 
 EX: Supervisor View  
+![](gifs/Supervisor-DepartmentOverview.gif)
 
 ### Technologies Used: 
 Node (mysql, inquirer node packages) written with SQL and JS
