@@ -28,6 +28,7 @@ inquirer.prompt([
             break;
 
         case "Create New Department":
+            addDepartment();
             break;
 
     };
@@ -59,5 +60,28 @@ function viewProductSales(){
 
         // End connection
         connection.end();
+    });
+};
+
+function addDepartment(){
+
+    inquirer.prompt([
+        {
+            name: "department",
+            type: "input",
+            message: "Which department do you want to add?"
+        }
+    ]).then(function(response){
+
+        console.log(response.department);
+
+        connection.query("UPDATE departments SET department_name = ?", response.department, function(err, res){
+            if (err) throw err;
+
+            console.log(response.department + " Was successfully added to departments!");
+        
+            // End connection
+            connection.end();
+        });
     });
 };
