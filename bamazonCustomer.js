@@ -14,9 +14,9 @@ var connection = mysql.createConnection({
 // Display all items available for sale 
 connection.query("SELECT * FROM products", function(err,res){
     // Error handler
-    if (err) console.log("error: ", err);
+    if (err) throw err;
 
-    console.log(res);
+    // console.log(res);
     // Display id, name, price of product
     for (var i=0;i<res.length;i++) {
         console.log("ID: " + res[i].id + "\nProduct Name: " + res[i].product_name + "\nPrice: " + "$" + res[i].price + "\n\n");
@@ -83,7 +83,7 @@ connection.query("SELECT * FROM products", function(err,res){
                     connection.end();
 
                 });
-             }
+            }
         });
     });
 });
