@@ -7,13 +7,13 @@ This app is an Amazon-like storefront site where customers can order and deplete
 There are 3 views to run (customer, manager, supervisor) with their respective files. Running the Customer view allows the user to see the full inventory stock details and place an order. Manager view allows the user to check the product/inventory and restock. Supervisor view allows user to check summarized sales by departments.
 
 EX: Customer View
-![](bamazonCustomer-Demo.gif)
+![](gifs/bamazonCustomer-Demo.gif)
 
 EX: Manager View
-![](Manager-ViewProducts.gif)
-![](Manager-LowInventory.gif)
-![](Manager-AddInventory.gif)
-![](Manager-AddProduct.gif)
+![](gifs/Manager-ViewProducts.gif)
+![](gifs/Manager-LowInventory.gif)
+![](gifs/Manager-AddInventory.gif)
+![](gifs/Manager-AddProduct.gif)
 
 EX: Supervisor View  
 
